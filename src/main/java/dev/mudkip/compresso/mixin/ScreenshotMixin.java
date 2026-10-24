@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 @Mixin(Screenshot.class)
 public class ScreenshotMixin {
     @Inject(
-            //? if >=1.21.11 {
+            //? if >=1.21.10 {
             method = "grab(Ljava/io/File;Ljava/lang/String;Lcom/mojang/blaze3d/pipeline/RenderTarget;ILjava/util/function/Consumer;)V",
             //?} else {
             /*method = "grab(Ljava/io/File;Ljava/lang/String;Lcom/mojang/blaze3d/pipeline/RenderTarget;Ljava/util/function/Consumer;)V",
@@ -25,7 +25,7 @@ public class ScreenshotMixin {
             cancellable = true
     )
     private static void compresso$compress(File workDir, String forceName, RenderTarget target,
-            //? if >=1.21.11 {
+            //? if >=1.21.10 {
             int downscaleFactor,
             //?}
             Consumer<Component> callback, CallbackInfo ci) {
@@ -34,7 +34,7 @@ public class ScreenshotMixin {
         }
 
         ScreenshotProcessor.grab(workDir, forceName, target,
-                //? if >=1.21.11 {
+                //? if >=1.21.10 {
                 downscaleFactor,
                 //?}
                 callback);

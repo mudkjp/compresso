@@ -13,6 +13,11 @@ val isNeoforge = loaderName == "neoforge"
 val obfuscated = !(findProperty("fabric.loom.disableObfuscation")?.toString()?.toBoolean() ?: false)
 val javaVersion = (property("mod.java_version") as String).toInt()
 val minecraftDependency = property("mod.minecraft_dependency") as String
+val publishedMinecraftVersions = (findProperty("mod.minecraft_versions") as String?)
+        ?.split(',')
+        ?.map(String::trim)
+        ?.filter(String::isNotEmpty)
+        ?: listOf(stonecutter.current.version)
 
 base {
     archivesName = "compresso"
@@ -139,7 +144,7 @@ publishMods {
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         projectId = "zL3SutUq"
-        minecraftVersions.add(stonecutter.current.version)
+        publishedMinecraftVersions.forEach { minecraftVersions.add(it) }
         requires("yacl")
 
         if (isFabric) {

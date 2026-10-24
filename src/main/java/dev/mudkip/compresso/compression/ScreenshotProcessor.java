@@ -34,11 +34,11 @@ public final class ScreenshotProcessor {
     }
 
     public static void grab(File workingDirectory, @Nullable String forceName, RenderTarget target,
-            //? if >=1.21.11 {
+            //? if >=1.21.10 {
             int downscaleFactor,
             //?}
             Consumer<Component> callback) {
-        //? if >=1.21.11 {
+        //? if >=1.21.10 {
         Screenshot.takeScreenshot(target, downscaleFactor, nativeImage -> {
             BufferedImage image;
 
@@ -68,7 +68,7 @@ public final class ScreenshotProcessor {
         *///?} else {
         var contentScaleX = new float[1];
         var contentScaleY = new float[1];
-        //? if >=1.21.11 {
+        //? if >=1.21.10 {
         GLFW.glfwGetWindowContentScale(window.handle(), contentScaleX, contentScaleY);
         //?} else {
         /*GLFW.glfwGetWindowContentScale(window.getWindow(), contentScaleX, contentScaleY);
@@ -112,7 +112,7 @@ public final class ScreenshotProcessor {
     private static BufferedImage toBufferedImage(NativeImage nativeImage) {
         var width = nativeImage.getWidth();
         var height = nativeImage.getHeight();
-        //? if >=1.21.11 {
+        //? if >=1.21.10 {
         var pixels = nativeImage.getPixels();
         //?} else {
         /*var pixels = nativeImage.makePixelArray();
@@ -161,7 +161,7 @@ public final class ScreenshotProcessor {
     private static Component savedMessage(File file, long fileBytes) {
         Component link = Component.literal(file.getName())
                 .withStyle(ChatFormatting.UNDERLINE)
-                //? if >=1.21.11 {
+                //? if >=1.21.10 {
                 .withStyle(style -> style.withClickEvent(new ClickEvent.OpenFile(file.getAbsoluteFile())));
                 //?} else {
                 /*.withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, file.getAbsolutePath())));
