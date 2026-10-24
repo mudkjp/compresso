@@ -42,6 +42,7 @@ public final class ConfigScreen {
         var pngLevel = integerOption("compresso.option.png_level", 0, 9, 1, () -> config.pngCompressionLevel, v -> config.pngCompressionLevel = v, DEFAULT.pngCompressionLevel);
         var webpMethod = integerOption("compresso.option.webp_method", 0, 6, 1, () -> config.webpMethod, v -> config.webpMethod = v, DEFAULT.webpMethod);
         var avifSpeed = integerOption("compresso.option.avif_speed", 0, 10, 1, () -> config.avifSpeed, v -> config.avifSpeed = v, DEFAULT.avifSpeed);
+        var jxlEffort = integerOption("compresso.option.jxl_effort", 1, 10, 1, () -> config.jxlEffort, v -> config.jxlEffort = v, DEFAULT.jxlEffort);
 
         var useExternal = booleanOption("compresso.option.use_external", () -> config.useExternalEncoders, v -> config.useExternalEncoders = v, DEFAULT.useExternalEncoders);
         var preferExternal = booleanOption("compresso.option.prefer_external", () -> config.preferExternalWhenAvailable, v -> config.preferExternalWhenAvailable = v, DEFAULT.preferExternalWhenAvailable);
@@ -61,7 +62,7 @@ public final class ConfigScreen {
             }
         });
 
-        var options = List.of(enabled, format, mode, quality, matchWindow, pngLevel, webpMethod, avifSpeed, useExternal, preferExternal);
+        var options = List.of(enabled, format, mode, quality, matchWindow, pngLevel, webpMethod, avifSpeed, jxlEffort, useExternal, preferExternal);
 
         Runnable rebuild = () -> {
             options.forEach(Option::applyValue);
@@ -112,6 +113,11 @@ public final class ConfigScreen {
                     .name(Component.literal(ImageFormat.AVIF.getDisplayName()))
                     .option(avifSpeed)
                     .build());
+        } else if (config.format == ImageFormat.JPEGXL) {
+            category.group(OptionGroup.createBuilder()
+                    .name(Component.literal(ImageFormat.JPEGXL.getDisplayName()))
+                    .option(jxlEffort)
+                    .build());
         }
 
         category.group(OptionGroup.createBuilder()
@@ -129,6 +135,7 @@ public final class ConfigScreen {
                 .option(encoderStatus(config.webpEncoderPath))
                 .option(encoderStatus(config.pngOptimizerPath))
                 .option(encoderStatus(config.jpegEncoderPath))
+                .option(encoderStatus(config.jxlEncoderPath))
                 .build());
 
         return YetAnotherConfigLib.createBuilder()

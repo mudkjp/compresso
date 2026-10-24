@@ -4,7 +4,7 @@
 
 # Compresso
 
-Compress Minecraft screenshots into smaller PNG, WebP, JPEG &amp; AVIF files.
+Compress Minecraft screenshots into smaller PNG, WebP, JPEG, JPEG XL &amp; AVIF files.
 
 [Download on Modrinth](https://modrinth.com/mod/compresso)
 

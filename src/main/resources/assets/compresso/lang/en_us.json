@@ -8,6 +8,8 @@
   "compresso.option.enabled.description": "Turn Compresso on or off.",
   "compresso.option.format": "Output format",
   "compresso.option.format.description": "Image format to save screenshots in.",
+  "compresso.option.jxl_effort": "JPEG XL effort",
+  "compresso.option.jxl_effort.description": "How hard to work to shrink JPEG XL files. Higher saves more space but takes longer.",
   "compresso.option.match_window": "Match window resolution",
   "compresso.option.match_window.description": "Save screenshots at your window's size. On scaled (HiDPI) displays this avoids oversized files.",
   "compresso.option.mode": "Compression mode",

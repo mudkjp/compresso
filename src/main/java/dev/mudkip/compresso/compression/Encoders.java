@@ -42,7 +42,7 @@ public final class Encoders {
     }
 
     private static Backend backend(ImageFormat format, ScreenshotConfig config) {
-        if (format == ImageFormat.AVIF) {
+        if (isExternalOnly(format)) {
             return externalAvailable(config, format) ? Backend.EXTERNAL : null;
         }
 
@@ -59,6 +59,10 @@ public final class Encoders {
         return null;
     }
 
+    private static boolean isExternalOnly(ImageFormat format) {
+        return format == ImageFormat.AVIF || format == ImageFormat.JPEGXL;
+    }
+
     private static boolean lossless(ImageFormat format, ScreenshotConfig config) {
         return format.resolveMode(config.compressionMode) == CompressionMode.LOSSLESS;
     }
@@ -68,14 +72,15 @@ public final class Encoders {
             case PNG -> true;
             case JPEG -> hasImageIoWriter("jpeg");
             case WEBP -> hasImageIoWriter("webp");
-            case AVIF -> false;
+            case AVIF, JPEGXL -> false;
         };
     }
 
     private static boolean externalAvailable(ScreenshotConfig config, ImageFormat format) {
-        if (format != ImageFormat.AVIF && !config.useExternalEncoders) {
+        if (!isExternalOnly(format) && !config.useExternalEncoders) {
             return false;
         }
+
         return isInstalled(commandFor(config, format));
     }
 
@@ -191,6 +196,23 @@ public final class Encoders {
                 command.add(target.toString());
             }
 
+            case JPEGXL -> {
+                command.add(config.jxlEncoderPath);
+                command.add("-e");
+                command.add(Integer.toString(config.jxlEffort));
+
+                if (lossless) {
+                    command.add("-d");
+                    command.add("0");
+                } else {
+                    command.add("-q");
+                    command.add(Integer.toString(config.quality));
+                }
+
+                command.add(source.toString());
+                command.add(target.toString());
+            }
+
             case PNG -> {
                 command.add(config.pngOptimizerPath);
                 command.add("-o");
@@ -235,6 +257,7 @@ public final class Encoders {
             case WEBP -> config.webpEncoderPath;
             case PNG -> config.pngOptimizerPath;
             case JPEG -> config.jpegEncoderPath;
+            case JPEGXL -> config.jxlEncoderPath;
         };
     }
 

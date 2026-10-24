@@ -8,7 +8,7 @@ modId = "compresso"
 version = "${version}"
 displayName = "Compresso"
 authors = "mudkip"
-description = "Compress your screenshots into smaller PNG, WebP, JPEG & AVIF files"
+description = "Compress your screenshots into smaller PNG, WebP, JPEG, JPEG XL & AVIF files"
 logoFile = "assets/compresso/icon.png"
 
 [[mixins]]

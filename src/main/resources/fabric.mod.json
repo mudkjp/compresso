@@ -3,7 +3,7 @@
     "id": "compresso",
     "version": "${version}",
     "name": "Compresso",
-    "description": "Compress your screenshots into smaller PNG, WebP, JPEG & AVIF files",
+    "description": "Compress your screenshots into smaller PNG, WebP, JPEG, JPEG XL & AVIF files",
     "authors": [
         "mudkip"
     ],

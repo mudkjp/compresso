@@ -27,6 +27,7 @@ public final class ScreenshotConfig {
     public int pngCompressionLevel;
     public int webpMethod;
     public int avifSpeed;
+    public int jxlEffort;
 
     public boolean useExternalEncoders;
     public boolean preferExternalWhenAvailable;
@@ -34,6 +35,7 @@ public final class ScreenshotConfig {
     public String webpEncoderPath;
     public String pngOptimizerPath;
     public String jpegEncoderPath;
+    public String jxlEncoderPath;
 
     public ScreenshotConfig() {
         this.enabled = true;
@@ -44,10 +46,12 @@ public final class ScreenshotConfig {
         this.pngCompressionLevel = 9;
         this.webpMethod = 4;
         this.avifSpeed = 6;
+        this.jxlEffort = 7;
         this.avifEncoderPath = "avifenc";
         this.webpEncoderPath = "cwebp";
         this.pngOptimizerPath = "oxipng";
         this.jpegEncoderPath = "cjpeg";
+        this.jxlEncoderPath = "cjxl";
     }
 
     public static ScreenshotConfig get() {
@@ -106,10 +110,12 @@ public final class ScreenshotConfig {
         this.pngCompressionLevel = Math.clamp(this.pngCompressionLevel, 0, 9);
         this.webpMethod = Math.clamp(this.webpMethod, 0, 6);
         this.avifSpeed = Math.clamp(this.avifSpeed, 0, 10);
+        this.jxlEffort = Math.clamp(this.jxlEffort, 1, 10);
         this.avifEncoderPath = orDefault(this.avifEncoderPath, "avifenc");
         this.webpEncoderPath = orDefault(this.webpEncoderPath, "cwebp");
         this.pngOptimizerPath = orDefault(this.pngOptimizerPath, "oxipng");
         this.jpegEncoderPath = orDefault(this.jpegEncoderPath, "cjpeg");
+        this.jxlEncoderPath = orDefault(this.jxlEncoderPath, "cjxl");
     }
 
     public CompressionMode effectiveMode() {

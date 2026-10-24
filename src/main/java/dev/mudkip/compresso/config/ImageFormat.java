@@ -7,7 +7,8 @@ public enum ImageFormat implements StringRepresentable {
     PNG("png", "png", "PNG", true, false),
     JPEG("jpeg", "jpg", "JPEG", false, true),
     WEBP("webp", "webp", "WebP", true, true),
-    AVIF("avif", "avif", "AVIF", true, true);
+    AVIF("avif", "avif", "AVIF", true, true),
+    JPEGXL("jpegxl", "jxl", "JPEG XL", true, true);
 
     public static final StringRepresentable.EnumCodec<ImageFormat> CODEC = StringRepresentable.fromEnum(ImageFormat::values);
 
